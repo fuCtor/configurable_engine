@@ -2,7 +2,7 @@ class CreateConfigurables < ActiveRecord::Migration
   def self.up
     create_table :configurables do |t|
       t.string :name
-      t.string :value
+      t.text :value
 
       t.timestamps
     end
