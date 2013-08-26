@@ -3,23 +3,17 @@
 .row-fluid
   .span12
     = form_tag(admin_configurable_path, :method => :put, :class => 'form-horizontal') do
-      %fieldset
-        - Configurable.keys.each do |key|
-          - options = Configurable.defaults[key]       
-          .control-group
-            %label.control-label{:for=> key }= options[:name]
-            .controls 
-              - if options[:type] == 'boolean'
-                = hidden_field_tag key, "0"
-                = check_box_tag key, "1", Configurable.send(key)
-              - elsif options[:type] == 'password'
-                = password_field_tag key, Configurable.send(key), :class => "span6"
-              - elsif options[:type] == 'text'
-                = text_area_tag key, Configurable.send(key), :class => "span6", :rows => options[:rows] || 6
-              - elsif options[:type] == 'list'
-                = text_area_tag key, Configurable.send(key).collect{ |a| a.join(",")}.join("\n"),
-                  :class => "span6", :rows => options[:rows] || 6
-              - else
-                = text_field_tag key, Configurable.send(key), :class => "span6"
+      %ul#configTab.nav.nav-tabs
+        %li.active
+          %a{:href=>"#main", :data => {:toggle=>"tab"}}Main
+        - @groups.each do |g|
+          %li
+            %a{:href=>"##{g.group}", :data => {:toggle=>"tab"}}= g.title
+
+      .tab-content
+        #main.tab-pane.active= render partial: 'values', object: Configurable      
+        - @groups.each do |g|
+          .tab-pane{:id => g.group}= render partial: 'values', object: g
+          
       .form-actions                
         = submit_tag t("configure_engine.save", :default => 'Save'), :class => 'btn'

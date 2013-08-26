@@ -1,0 +1,19 @@
+%fieldset
+  - values.values.each do |key|
+    - options = values.defaults[key]
+    .control-group
+      %label.control-label{:for=> key }= options[:name]
+      .controls 
+        - case options[:type]
+          - when 'boolean'
+            = hidden_field_tag values.form_key(key), "0"
+            = check_box_tag values.form_key(key), "1", values.send(key)
+          - when 'password'
+            = password_field_tag values.form_key(key), values.send(key), :class => "span6"
+          - when 'text'
+            = text_area_tag values.form_key(key), values.send(key), :class => "span6", :rows => options[:rows] || 6
+          - when 'list'
+            = text_area_tag values.form_key(key), values.send(key).collect{ |a| a.join(",")}.join("\n"),
+              :class => "span6", :rows => options[:rows] || 6
+          - else
+            = text_field_tag values.form_key(key), values.send(key), :class => "span6"
