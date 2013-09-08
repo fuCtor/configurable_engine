@@ -16,14 +16,40 @@ describe Configurable do
   describe ".keys" do
     it "should collect the keys" do
       Configurable.keys.should == ['conversion_rate',
+                                   'group1',
+                                
                                    'important_number',
                                    'log_out_sso',
                                    'long_list',
-                                   'notify_email'
+                                   'notify_email'                                   
                                    ]
     end
   end
 
+  describe ".values" do
+    it "should collect the values" do
+      Configurable.values.should == ['conversion_rate',                                
+                                   'important_number',
+                                   'log_out_sso',
+                                   'long_list',
+                                   'notify_email'                                   
+                                   ]
+    end
+  end
+
+  describe ".groups" do
+    it "should collect the groupd" do
+      Configurable.groups.should == ['group1']
+    end
+  end  
+  
+  describe ".form_key" do
+    it "should return same key" do
+      Configurable.form_key('key').should == 'key'
+      Configurable.value_key('key').should == Configurable.form_key('key')
+    end
+  end
+  
   describe ".[]=" do
     context "with no saved value" do
       it "creates a new entry" do
@@ -128,6 +154,10 @@ describe Configurable do
     it "should assign the correct value" do
       Configurable.notify_email = 'john@example.com'
       Configurable.notify_email.should == 'john@example.com'
+    end
+    
+    it "should return group object" do
+      Configurable.group1.should be_a(ConfigurableGroup)
     end
   end
 
