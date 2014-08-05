@@ -1,6 +1,6 @@
 .page-header
   %h1= t("configure_engine.title", :default => 'Config')
-.row-fluid
+.row
   .span12
     = form_tag(admin_configurable_path, :method => :put, :class => 'form-horizontal') do
       %ul#configTab.nav.nav-tabs
@@ -10,10 +10,11 @@
           %li
             %a{:href=>"##{g.group}", :data => {:toggle=>"tab"}}= g.title
 
-      .tab-content
-        #main.tab-pane.active= render partial: 'values', object: Configurable      
+      .tab-content.tab-content-bordered.panel
+        #main.tab-pane.active= render partial: 'values', object: Configurable
         - @groups.each do |g|
           .tab-pane{:id => g.group}= render partial: 'values', object: g
           
-      .form-actions                
-        = submit_tag t("configure_engine.save", :default => 'Save'), :class => 'btn'
+      .form-group
+        .col-sm-8
+          = submit_tag t("configure_engine.save", :default => 'Save'), :class => 'btn'
