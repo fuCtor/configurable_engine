@@ -47,17 +47,17 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rails>, ["~> 4"])
-      s.add_runtime_dependency(%q<activerecord>, ["~> 4"])
+      s.add_runtime_dependency(%q<rails>, ["~> 3"])
+      s.add_runtime_dependency(%q<activerecord>, ["~> 3"])
 	  s.add_runtime_dependency(%q<haml>, ["~> 4"])
     else
-      s.add_dependency(%q<rails>, ["~> 4"])
-      s.add_dependency(%q<activerecord>, ["~> 4"])
+      s.add_dependency(%q<rails>, ["~> 3"])
+      s.add_dependency(%q<activerecord>, ["~> 3"])
 	  s.add_dependency(%q<haml>, ["~> 4"])
     end
   else
-    s.add_dependency(%q<rails>, ["~> 4"])
-    s.add_dependency(%q<activerecord>, ["~> 4"])
+    s.add_dependency(%q<rails>, ["~> 3"])
+    s.add_dependency(%q<activerecord>, ["~> 3"])
 	s.add_dependency(%q<haml>, ["~> 4"])
   end
 end
